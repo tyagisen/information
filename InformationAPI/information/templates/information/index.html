@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Dashboard</h1>
+                </div><!-- /.col -->
+
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <div class="row">
+        {% for category in category %}
+
+        <div class="col-lg-3 col-6 ml-2">
+            <!-- small box -->
+            <a href="{% url 'category-detail' category.id %}">
+                <div class="small-box bg-info">
+                    <div class="inner">
+
+                        <h3>{{category.category_name}}</h3>
+
+                        <p>{{category.category_name}}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+
+                </div>
+            </a>
+        </div>
+
+        {% endfor %}
+    </div>
+
+</div>
+<!-- /.content-wrapper -->
+{% endblock content %}
