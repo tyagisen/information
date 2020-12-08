@@ -3,7 +3,13 @@ from .models import *
 from .serializers import *
 from rest_framework import viewsets
 from rest_framework.generics import ListAPIView
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
+from .forms import *
+from .models import Category
+from .forms import CreateCategoryDetailForm
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 
 
 class Home(ListView):
@@ -15,13 +21,31 @@ class Home(ListView):
 class HomeCategoryDetail(DetailView):
     model = Category
     template_name = 'information/category_detail.html'
-    # context_object_name =
 
+
+class CreateCategoryDetail(CreateView):
+    model = SubCategory
+    form_class = CreateCategoryDetailForm
+    # fields = '__all__'
+    template_name = 'information/subcategory_form.html'
+
+    def form_valid(self, form):
+        form.instance.user_category_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+class CreateInformationDetail(CreateView):
+    model = Information
+    form_class = CreateInformationForm
+    template_name = 'information/information_form.html'
+
+    def form_valid(self, form):
+        form.instance.sub_category_id = self.kwargs['pk']
+        return super().form_valid(form)
 
 class SubCategoryList(ListView):
     model = SubCategory
-    template_name = 'information/sub_category.html'
     context_object_name = 'sub'
+    template_name = 'information/sub_category.html'
 
 
 class SubCategoryDetail(DetailView):

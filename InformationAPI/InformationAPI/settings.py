@@ -37,9 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'information',
+    'information.apps.InformationConfig',
     'rest_framework',
-    'django_filters'
+    'django_filters',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -127,6 +128,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR/'static'
 ]
+CRISPY_TEMPLATE_PACK= 'bootstrap4'
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
