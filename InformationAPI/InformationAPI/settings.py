@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'information.apps.InformationConfig',
     'rest_framework',
     'django_filters',
-    'crispy_forms'
+    'crispy_forms',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [

@@ -10,13 +10,32 @@ from .forms import CreateCategoryDetailForm
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.views import View
 
-
-class Home(ListView):
-    model = Category
+class Home(View):
+    # model = Category
     template_name = 'information/index.html'
-    context_object_name = 'category'
+    # context_object_name = 'category'
 
+    def get(self, request):
+        context = {
+            'form': CategoryForm(),
+            'category': Category.objects.all(),
+        }
+        return render(request, self.template_name, context)
+
+
+    def post(self, request, *args, **kwargs):
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.user_id = request.user.id
+            data.save()
+            # messages.add_message(request, messages.SUCCESS, "Saved Successfully")
+            return redirect('home')
+        else:
+            # messages.add_message(request, messages.ERROR, "Sory error occured")
+            return redirect('home')
 
 class HomeCategoryDetail(DetailView):
     model = Category
@@ -42,10 +61,30 @@ class CreateInformationDetail(CreateView):
         form.instance.sub_category_id = self.kwargs['pk']
         return super().form_valid(form)
 
-class SubCategoryList(ListView):
-    model = SubCategory
-    context_object_name = 'sub'
+class SubCategoryList(View):
+
+    # model = SubCategory
     template_name = 'information/sub_category.html'
+    # context_object_name = 'sub'
+
+    def get(self, request):
+        context = {
+            'form': SubCategoryForm(),
+            'sub': SubCategory.objects.all(),
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        form = SubCategoryForm(request.POST)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.user_id = request.user.id
+            data.save()
+            # messages.add_message(request, messages.SUCCESS, "Saved Successfully")
+            return redirect('sub-category')
+        else:
+            # messages.add_message(request, messages.ERROR, "Sory error occured")
+            return redirect('sub-category')
 
 
 class SubCategoryDetail(DetailView):
@@ -53,10 +92,43 @@ class SubCategoryDetail(DetailView):
     template_name = 'information/sub_category_detail.html'
 
 
-class InfoList(ListView):
-    model = Information
+class InfoList(View):
+    # model = Information
     template_name = 'information/info.html'
-    context_object_name = 'information'
+    # context_object_name = 'information'
+
+    def get(self, request):
+        context = {
+            'form': InformationForm(),
+            'information': Information.objects.all(),
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        form = InformationForm(request.POST)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.user_id = request.user.id
+            data.save()
+            # messages.add_message(request, messages.SUCCESS, "Saved Successfully")
+            return redirect('info-list')
+        else:
+            # messages.add_message(request, messages.ERROR, "Sory error occured")
+            return redirect('info-list')
+
+def EditInformationList(request, pk):
+
+    data = Information.objects.get(pk=pk)
+    form= InformationListForm(request.POST or None, request.FILES or None, instance=data)
+    if form.is_valid():
+        form.save()
+        # messages.add_message(request, messages.SUCCESS, "Created Successfully")
+        return redirect('info-list')
+    context = {
+        'form': form
+    }
+    return render(request, 'information/info_list.html', context)
+
 
 
 # Api Start.
@@ -69,7 +141,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class SubCategoryViewSet(viewsets.ModelViewSet, ListAPIView):
     queryset = SubCategory.objects.all()
     serializer_class = SubCategorySerializer
-    filterset_fields = ['category']
+    # filterset_fields = ['category']
 
 
 class InformationViewSet(viewsets.ModelViewSet, ListAPIView):

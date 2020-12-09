@@ -7,64 +7,118 @@
 <div class="content-wrapper">
 
     <div class="content-header">
+        
         <div class="container-fluid">
+            
             <div class="row mb-2">
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                     <h1 class="m-0 text-dark">Information</h1>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
+                <div class="col-sm-2">
+                    <button id="myBtn0" class="btn btn-primary"><i
+                            class="fa fa-plus"></i> Add Information
+                    </button>
+    
+    
+                </div>
+                <div class="col-sm-5">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'sub-category' %}">Sub Category</a></li>
                         <li class="breadcrumb-item active">Information</li>
                     </ol>
                 </div><!-- /.col -->
+                
             </div><!-- /.row -->
+          
         </div><!-- /.container-fluid -->
     </div>
-
+    
     <div class="container pt-5">
+        
         <div class="accordion" id="accordionExample">
+            <!-- <div class="center" >
+                <button style="border-radius:10px;  " id="myBtn">Add Information +</button>
+            </div> -->
             {% for information in information %}
             {% if forloop.counter == 1 %}
             <div class="card">
+                
                 <div class="card-header" id="headingOne">
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
                                 data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            {{information.info_title}}
+                            {{information.info_title}} 
+                            <a href="{% url 'list' information.pk %} " style="float: right;"><i class="fa fa-plus"></i></a>
+
+                             <!-- <span><a href="{% url 'list' information.pk %}" style="font-size: 25px;   text-align: right; color: green; " id="myBtn0">+</a></span> -->
                         </button>
+
                     </h2>
                 </div>
 
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                      data-parent="#accordionExample">
                     <div class="card-body">
-                        {{information.info_list}}
+                        {{information.info_list|safe}}
                     </div>
                 </div>
             </div>
+            
             {% else %}
             <div class="card">
+               
                 <div class="card-header" id="headingTwo">
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
                                 data-target="#collapse{{forloop.counter}}" aria-expanded="false"
                                 aria-controls="collapse{{forloop.counter}}">
-                            {{information.info_title}}
+                            {{information.info_title}} 
+                            <a href="{% url 'list' information.pk %}" style="float: right;"><i class="fa fa-plus"></i></a> 
+                            <!-- <span ><a href="{% url 'list' information.id %}"style="font-size: 25px; color: green;" id="myBtn0">+</a></span> -->
+                            <!-- <div class="add">
+                                <button id="myBtn0" class="btn btn-primary"><i
+                                        class="fa fa-plus"></i> Add Information
+                                </button>
+                
+                
+                            </div> -->
                         </button>
                     </h2>
                 </div>
                 <div id="collapse{{forloop.counter}}" class="collapse" aria-labelledby="heading{{forloop.counter}}"
                      data-parent="#accordionExample">
                     <div class="card-body">
-                        {{information.info_list}}
+                        {{information.info_list|safe}}
                     </div>
                 </div>
             </div>
             {% endif %}
             {% endfor %}
+            <div class="center" >
+                <button style=" border-radius:0; position: fixed; top:0; color: white; width: 100%; font-weight: bold;" id="myBtn" class="btn btn-primary"><i
+                    class="fa fa-plus"></i> Add Information</button>
+            </div>
         </div>
     </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <!-- <p>Form</p> -->
+    
+          <h1>Add Information</h1>
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+    
+          {{form.as_p}}
+          <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+        </div>
+      
+    </div>
+     
 </div>
 {% endblock content %}

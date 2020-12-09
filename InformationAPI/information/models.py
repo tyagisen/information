@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 
 class Category(models.Model):
@@ -23,7 +24,7 @@ class SubCategory(models.Model):
 class Information(models.Model):
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     info_title = models.CharField(max_length=100)
-    info_list = models.CharField(max_length=500)
+    info_list = RichTextField()
 
     def get_absolute_url(self):
         return reverse('info-detail', kwargs={'pk': self.sub_category.id})

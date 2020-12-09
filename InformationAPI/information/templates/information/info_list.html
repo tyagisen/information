@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content-wrapper">
+
+    <div class="content-header">
+        
+        <div class="container-fluid">
+            
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark"></h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'sub-category' %}">Sub Category</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'info-list' %}">Information</a></li>
+                        <li class="breadcrumb-item active">List</li>
+ 
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    
+    <div class="container pt-5">
+        <div class="accordion" id="accordionExample">
+          
+            <h3>Do Changes</h3>
+            <form method="post" enctype="multipart/form-data">
+                {{form.media}}
+                {{form.as_p}}
+            
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Done</button>
+            </form>
+            
+        </div>
+    </div>
+   
+</div>
+{% endblock content %}
