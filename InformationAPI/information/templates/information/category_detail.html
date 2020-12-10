@@ -12,7 +12,7 @@
                     <h1 class="m-0 text-dark">{{object.category_name}} Detail</h1>
                 </div><!-- /.col -->
                 <div class="add">
-                    <a href="{% url 'create-category' object.id %}" class="btn btn-primary"><i
+                    <a href="{% url 'create-category' object.id %}" class="btn btn-info"><i
                             class="fa fa-plus"></i> Add Detail
                     </a>
                 </div>
@@ -29,17 +29,23 @@
                 <div class="small-box bg-info">
                     <div class="inner">
 
-                        <h3>{{category.subcat_name}}</h3>
+                        <h3 style="color: white;">{{category.subcat_name}}</h3>
                         <p>{{category.category_name}}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <div class="icon">
+                        <i class="ion ion-bag fa fa-circle "></i>
+                    </div>
                 </div>
+
             </a>
+           
         </div>
         {% endfor %}
     </div>
+  
 </div>
 {% endblock content %}

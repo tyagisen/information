@@ -27,15 +27,16 @@
         <div class="col-lg-3 col-6 ml-2">
             <!-- small box -->
             <a href="{% url 'category-detail' category.id %}">
-                <div class="small-box bg-info">
+                <div class="small-box bg-primary" >
                     <div class="inner">
 
-                        <h3>{{category.category_name}}</h3>
-
+                        <h3 style="color: white;">{{category.category_name}}</h3>
+                   
                         <p>{{category.category_name}}</p>
+                       
                     </div>
                     <div class="icon">
-                        <i class="ion ion-bag"></i>
+                        <i class="ion ion-bag far fa-star"></i>
                     </div>
 
                 </div>
@@ -43,6 +44,9 @@
         </div>
 
         {% endfor %}
+    <!-- <div class="smell-box bg-primary" style="cursor: pointer; hover{border-color: red;};">
+            Hello
+           </div> -->
     </div>
 
     <!-- The Modal -->
