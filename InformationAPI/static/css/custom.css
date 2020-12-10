@@ -47,3 +47,18 @@
 .center button{
   font-size: 25px;
 }
+.small-box{
+  border-color: #d3d0d0;
+  border-style: solid;
+  border-width: thin;
+}
+.small-box:hover
+{
+  /* opacity: 0.85; */
+  background-color:transparent;
+  border-style:solid;
+  border-width: thin;
+  /* border-color: #007bff;  */
+  border-color:#9b9393d5 ;
+}
+

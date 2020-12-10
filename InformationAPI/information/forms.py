@@ -21,12 +21,12 @@ class CategoryForm(forms.ModelForm):
         fields = '__all__'
 
 class SubCategoryForm(forms.ModelForm):
-    category=forms.ModelChoiceField(queryset=Category.objects.all(),widget=forms.Select(attrs={'class':'form-control'}),initial='')
+    user_category=forms.ModelChoiceField(queryset=Category.objects.all(),widget=forms.Select(attrs={'class':'form-control'}),initial='')
     subcat_name=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
 
     class Meta:
         model = SubCategory
-        fields = ['category','subcat_name']
+        fields = ['user_category','subcat_name']
 
 class InformationForm(forms.ModelForm):
     sub_category=forms.ModelChoiceField(queryset=SubCategory.objects.all(),widget=forms.Select(attrs={'class':'form-control'}),initial='')

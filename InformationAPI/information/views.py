@@ -6,12 +6,11 @@ from rest_framework.generics import ListAPIView
 from django.views.generic import ListView, DetailView, CreateView
 from .forms import *
 from .models import Category
-from .forms import CreateCategoryDetailForm
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
-
+from django.contrib.auth.models import User
 class Home(View):
     # model = Category
     template_name = 'information/index.html'
@@ -21,6 +20,7 @@ class Home(View):
         context = {
             'form': CategoryForm(),
             'category': Category.objects.all(),
+            # 'sub':SubCategory.objects.all()
         }
         return render(request, self.template_name, context)
 
